@@ -10,10 +10,11 @@ export default defineSchema({
   }),
 
   InterviewSessionTable: defineTable({
-  interviewQuestions: v.any(),
-  resumeUrl: v.string(),
-  userId: v.id('UserTable'),
-  status: v.string()
+    interviewQuestions: v.any(),
+    resumeUrl: v.string(),
+    // change here: store the user identifier as a plain string (Clerk id or other)
+    userId: v.string(),
+    status: v.string()
 })
 
 });
