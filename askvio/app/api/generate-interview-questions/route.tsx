@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import ImageKit from "imagekit";
 import axios from "axios";
+import { aj } from "@/app/utils/arcjet";
+import { currentUser } from "@clerk/nextjs/server";
 
 const imageKit = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY as string,
@@ -10,8 +12,22 @@ const imageKit = new ImageKit({
 
 export async function POST(req: NextRequest) {
   try {
+    const user = await currentUser();
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
+
+    const decision = await aj.protect(req,{userId:user?.primaryEmailAddress?.emailAddress??"", requested:5})
+    console.log ('Arject Decision : ', decision);
+
+    //@ts-ignore
+    if (decision?.reason?.remaining==0) {
+      return NextResponse.json({
+        status : 429,
+        result : "No free credit remaining, Please try again after 24 hours or subscribe to premium to get started."
+      })
+    }
+
+    
 
     if (!file) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
