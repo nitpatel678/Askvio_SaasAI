@@ -16,6 +16,7 @@ import axios from "axios";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useUserDetailContext } from "@/app/Provider";
+import {motion} from "framer-motion";
 
 function CreateInterviewDialog() {
   const [file, setFile] = useState<File | null>(null);
@@ -71,40 +72,48 @@ function CreateInterviewDialog() {
 
   return (
     <Dialog>
-      <DialogTrigger>
-        <Button className="bg-white text-black mt-4 hover:bg-gray-600 hover:text-stone-200 cursor-pointer">
-          + Create Interview
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="min-w-3xl">
-        <DialogHeader>
-          <DialogTitle className="text-black">
-            Please Upload Your Resume
-          </DialogTitle>
-          <DialogDescription>
-            <ResumeUpload setFiles={(file: File) => setFile(file)} />
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <DialogClose>
-            <Button
-              className="text-black bg-gray-200 cursor-pointer"
-              variant={"ghost"}
-              disabled={loading}
-            >
-              Close
-            </Button>
-          </DialogClose>
+  <DialogTrigger>
+    <Button className="bg-white text-black mt-4 hover:bg-gray-600 hover:text-stone-200 cursor-pointer">
+      + Create Interview
+    </Button>
+  </DialogTrigger>
+
+  <DialogContent className="w-full max-w-md sm:max-w-lg lg:max-w-3xl p-6 sm:p-10 rounded-xl">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <DialogHeader>
+        <DialogTitle className="text-black text-lg sm:text-xl md:text-2xl">
+          Please Upload Your Resume
+        </DialogTitle>
+        <DialogDescription className="mt-4">
+          <ResumeUpload setFiles={(file: File) => setFile(file)} />
+        </DialogDescription>
+      </DialogHeader>
+
+      <DialogFooter className="mt-6 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-end">
+        <DialogClose>
           <Button
-            className="bg-black cursor-pointer text-white"
-            onClick={onSubmit}
-            disabled={loading || !file}
+            className="text-black bg-gray-200 w-full sm:w-auto"
+            variant="ghost"
+            disabled={loading}
           >
-            {loading ? <Loader2Icon className="animate-spin" /> : "Submit"}
+            Close
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </DialogClose>
+        <Button
+          className="bg-black text-white w-full sm:w-auto flex justify-center items-center"
+          onClick={onSubmit}
+          disabled={loading || !file}
+        >
+          {loading ? <Loader2Icon className="animate-spin mr-2" /> : "Submit"}
+        </Button>
+      </DialogFooter>
+    </motion.div>
+  </DialogContent>
+</Dialog>
   );
 }
 
