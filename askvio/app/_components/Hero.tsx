@@ -77,7 +77,7 @@ export default function Hero() {
         >
           <Link href={'/dashboard'}>
             <button className="w-60 transform rounded-lg bg-white px-6 py-2 text-center font-medium text-black transition-all duration-300 hover:-translate-y-0.5 cursor-pointer dark:bg-white dark:text-black dark:hover:bg-gray-200">
-              Explore Now
+              Get Started !
             </button>
           </Link>
         </motion.div>
