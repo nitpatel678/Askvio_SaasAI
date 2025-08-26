@@ -15,7 +15,7 @@ function EmptyState() {
       className="mt-10 sm:mt-14 flex flex-col items-center justify-center gap-6 sm:gap-8 
                  border-2 sm:border-4 border-dashed p-6 sm:p-10 rounded-xl sm:rounded-2xl 
                  border-gray-500 w-full max-w-md sm:max-w-xl mx-auto 
-                 bg-white/10 backdrop-blur-md border-white/20 shadow-xl"
+                 bg-white/10 backdrop-blur-md  shadow-xl"
     >
       {/* Image animation */}
       <motion.div
